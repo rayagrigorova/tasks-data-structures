@@ -1,0 +1,46 @@
+1. insertAfter ще създава и добавя Node с определени int данни след даден node 
+
+Параметрите на функцията са Node prev_Node, който е node-ът, след който искаме да сложим нов, и int new_data, което е новата информация за добавяне. 
+
+Ако prev_Node e null, то няма как да добавяме нищо преди и след него - извежда се предупреждение и се return - ва. 
+
+Създава се нов node с data, равна на new_data. 
+
+Сега идеята е да вкараме new_node между previous_Node и този след previous_Node (който е next за previous_Node, АКО ИМА ТАКЪВ)
+
+Затова се променя next-ът на new_node - за него е следващ node-ът, който досега е бил следващ за prev_Node => new_node.next = prev_Node.next;
+
+Вече new_node ще е след prev_Node, значи ще е next за prev_Node => prev_Node.next = new_node;
+И предишният на new_node ще е prev_Node => new_node.prev = prev_Node;
+
+Ако new_node e бил вкаран между два node-а, то previous-ът на втория node трябва да сочи към new_node
+Ако не е било така и след new_node няма нищо, не се опитваме да викаме за несъществуващия node previous, защото ще доведе до null poiner exception
+ => if (new_node.next != null) {new_node.next.prev = new_node;}
+
+2. append ще създава и добавя Node с определени int данни в края на списъка  
+
+Единственият параметър на функцията е int new_data, данните на новия node 
+
+Създава се нов node с data, равна на new_data. Създава се и Node last, който първоначално сочи към head-а (първия елемент от списъка)
+
+Тъй като ще добавяме в края, новият node няма да има следващ =>  new_node.next = null;
+
+Ако свързаният списък е празен, то head == null. Тоест новият елемент ще стане head, тъй като е и начало, и край, и няма да има нито previous, нито next. 
+	=>  if (head == null){
+		new_node.prev = null;
+		head = new_node;
+        	return;
+	}
+
+
+Иначе чрез Node last = head стигаме до последният node в свързания списък (new_node още не е част от свързания списък) 
+     
+	while (last.next != null){
+		last = last.next;
+	}
+
+Чрез това ще достигнем до последния елемент, защото той няма next
+След това свързваме last и new_node - next - ът на last ще сочи към новия node, а previous-ът на new_node - към last. Така new_node става последен.
+
+     last.next = new_node;
+     new_node.prev = last;
