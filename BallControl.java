@@ -1,4 +1,4 @@
-package Lists_zadachi7;
+package StacksQueues_zadachi8;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -38,40 +38,6 @@ public class BallControl extends JPanel {
 				ballPanel.setDelay(jsbDelay.getMaximum() - e.getValue());
 			}
 		});
-		
-		ballPanel.addMouseListener(new MouseListener() {
-
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				ballPanel.remove(new Point(e.getX(), e.getY()));
-				
-		}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-		});
 	}
 
 	class Listener implements ActionListener {
@@ -85,7 +51,6 @@ public class BallControl extends JPanel {
 				ballPanel.add();
 			else if (e.getSource() == jbtSubtract)
 				ballPanel.subtract();
-
 		}
 	}
 }

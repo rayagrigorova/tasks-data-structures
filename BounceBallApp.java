@@ -1,4 +1,4 @@
-package Lists_zadachi7;
+package StacksQueues_zadachi8;
 
 import java.awt.*;
 import javax.swing.*;
