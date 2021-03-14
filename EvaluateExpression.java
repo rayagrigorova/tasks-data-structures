@@ -64,15 +64,88 @@ public class EvaluateExpression {
 			else {
 				operandStack.push(Integer.parseInt(token));
 			}
-			System.out.println("token: " + token.toString());
-			System.out.println("operands: " + operandStack.toString());
-			System.out.println("operations: " + operatorStack.toString());
 		}
 		
 		while(!operatorStack.isEmpty()) {
 			processAnOperator(operatorStack, operandStack);
 		}
 		return operandStack.pop();		
+	}
+	
+	public static double evaluateExpressionDouble(String expression) {
+		Stack <Double> operandStack = new Stack <Double>();
+		Stack <Character> operatorStack = new Stack <Character>();
+
+		expression = insertBlanks(expression);
+		
+		String[] tokens = expression.split(" ");		
+		
+		for(String token : tokens) {
+			if(token.length() == 0 || token.contains(" ")) {continue;}
+			
+			else if(token.charAt(0) == '+' || token.charAt(0) == '-') {
+				while(!operatorStack.isEmpty() && (operatorStack.peek() == '+' || operatorStack.peek() == '-' ||
+					operatorStack.peek() == '/' || operatorStack.peek() == '*' ||operatorStack.peek() == '^')) {
+					processAnOperatorDouble(operatorStack, operandStack);
+				}
+				operatorStack.push(token.charAt(0));
+			}
+			
+			else if (token.charAt(0) == '*' || token.charAt(0) == '/') {
+				while(!operatorStack.isEmpty() && (operatorStack.peek() == '*' || operatorStack.peek() == '/' || operatorStack.peek() == '^')) {
+					processAnOperatorDouble(operatorStack, operandStack);
+				}
+				operatorStack.push(token.charAt(0));
+			}
+			//PEMDAS - Exponents (Powers, Roots) before Multiply, Divide, Add or Subtract
+			else if(token.charAt(0) == '^') {
+				//push and process
+				while(!operatorStack.isEmpty() && (operatorStack.peek() == '^')){
+				processAnOperatorDouble(operatorStack, operandStack);
+				}
+				operatorStack.push(token.charAt(0));
+			}
+			
+			else if (token.trim().charAt(0) == '(') {operatorStack.push('(');}
+			else if (token.trim().charAt(0) == ')') {
+				while(operatorStack.peek() != '(') {
+					processAnOperatorDouble(operatorStack, operandStack);
+				}
+				operatorStack.pop();
+			}
+			else {
+				operandStack.push(Double.parseDouble(token));
+			}
+		}
+		
+		while(!operatorStack.isEmpty()) {
+			processAnOperatorDouble(operatorStack, operandStack);
+		}
+		return operandStack.pop();		
+	}
+	
+	
+	public static void processAnOperatorDouble(Stack <Character> operatorStack, Stack <Double> operandStack) {
+		char op = operatorStack.pop();
+		double op1 = operandStack.pop();
+		double op2 = operandStack.pop();
+		
+		if(op == '+') {
+			operandStack.push(op2 + op1);
+		}
+		else if(op == '-') {
+			operandStack.push(op2 - op1);
+		}
+		else if (op == '*') {
+			operandStack.push(op2 * op1);
+		}
+		else if(op == '/') {
+			operandStack.push(op2 / op1);
+		}
+		else if(op == '^') {
+			operandStack.push(Math.pow(op2, op1));
+		}
+		
 	}
 	
 	public static void processAnOperator(Stack <Character> operatorStack, Stack <Integer> operandStack) {

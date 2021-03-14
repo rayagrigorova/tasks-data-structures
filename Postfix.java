@@ -25,7 +25,6 @@ public class Postfix {
 		System.out.println("\n");
 		
 		for(String token : tokens) {
-			System.out.println("token:" + token);
 			//If the char is empty or a blank space
 			if(token.equals("") || token.contains(" ")) {continue;}
 			
@@ -86,6 +85,5 @@ public class Postfix {
 
 		}
 	}
-	
 	
 }
