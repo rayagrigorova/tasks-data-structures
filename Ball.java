@@ -1,25 +1,30 @@
-package StacksQueues_zadachi8;
+package Lists_zadachi7;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.util.Random;
 
 class Ball {
-	int x = 0;
-	int y = 0; // Current ball position
-	int dx = 2; // Increment on ball's x-coordinate
-	int dy = 2; // Increment on ball's y-coordinate
-	int radius = 5; // Ball radius
-	Color color = new Color((int) (Math.random() * 256), (int) (Math.random() * 256), (int) (Math.random() * 256));
+	int x;
+	int y; // Current ball position
+	int dx; // Increment on ball's x-coordinate
+	int dy; // Increment on ball's y-coordinate
+	int radius; // Ball radius
+	Color color;
 	
 	Ball(){
-		Random r = new Random();
-		//r.nextInt(19) generates random int in range [0;18]. We add 2 so it's >= 2
-		radius = (r.nextInt(19)) + 2;
-		
-	    x = r.nextInt(101);
-		y = r.nextInt(101);
-		dx = (r.nextInt(5)) + 1; 
-		dy = (r.nextInt(5)) + 1;
+		this.x = (int)(Math.random() * 50);
+		this.y = (int)(Math.random() * 50);
+		this.dx = (int)(Math.random() * 5) + 1; 
+		this.dy = (int)(Math.random() * 5) + 1;
+		this.radius = 5;
+		this.color = new Color((int) (Math.random() * 256), (int) (Math.random() * 256), (int) (Math.random() * 256));		
 	}
-
+	
+	Ball(Dimension d){
+		this();
+		Random r = new Random();
+		this.x = r.nextInt(d.width);
+		this.y = r.nextInt(d.height);
+	}
 }

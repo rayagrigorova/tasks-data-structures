@@ -25,8 +25,9 @@ public class zadachi7_2ArrayList {
 		//zadachi7_2ArrayList is the class name 
 		Scanner sc = new Scanner(zadachi7_2ArrayList.class.getResourceAsStream(fileName));
 		while (sc.hasNextLine()) {
-				String data = sc.next();
-				list.add(data);
+			String line = sc.nextLine();
+		    String lineWords[] = line.split("[\\s.,]+");
+		    Collections.addAll(list, lineWords);
 		}
 		sc.close();
 	   
